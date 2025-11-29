@@ -50,7 +50,7 @@ body {
 }
 
 .navbar.scrolled {
-    background-color: rgba(0, 102, 204, 0.95) !important;
+    background-color: rgba(123, 177, 231, 0.95) !important;
     backdrop-filter: blur(10px);
 }
 
@@ -67,7 +67,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #004499 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #87b6f0 100%);
     color: white;
     padding-top: 80px;
 }

@@ -103,8 +103,15 @@ async function handleFormSubmission() {
     submitButton.disabled = true;
 
     try {
+        // Check if Supabase is initialized
+        if (!supabaseClient) {
+            console.log('Supabase client not initialized, attempting to initialize...');
+            initializeSupabase();
+        }
+
         // Submit to Supabase
-        if (typeof submitToSupabase === 'function') {
+        if (typeof submitToSupabase === 'function' && supabaseClient) {
+            console.log('Submitting to Supabase...');
             await submitToSupabase({
                 name,
                 email,
@@ -130,7 +137,22 @@ async function handleFormSubmission() {
         }
     } catch (error) {
         console.error('Error submitting form:', error);
-        showNotification('Sorry, there was an error sending your message. Please try again or contact us directly.', 'error');
+        console.error('Error details:', error.message, error.code);
+        
+        // More specific error messages
+        let errorMessage = 'Sorry, there was an error sending your message. ';
+        
+        if (error.message && error.message.includes('relation "contact_submissions" does not exist')) {
+            errorMessage += 'Database table not created yet. Please run the SQL setup in Supabase.';
+        } else if (error.message && error.message.includes('Failed to fetch')) {
+            errorMessage += 'Cannot connect to database. Please check your internet connection.';
+        } else if (error.message) {
+            errorMessage += error.message;
+        } else {
+            errorMessage += 'Please try again or contact us directly.';
+        }
+        
+        showNotification(errorMessage, 'error');
     } finally {
         // Re-enable submit button
         submitButton.innerHTML = originalText;
