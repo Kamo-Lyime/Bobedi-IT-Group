@@ -1,7 +1,7 @@
 /* Custom CSS for Bobedi IT Group */
 
 :root {
-    --primary-color: #04294e57;
+    --primary-color: #0066cc;
     --secondary-color: #f8f9fa;
     --accent-color: #28a745;
     --dark-color: #343a40;
@@ -49,9 +49,20 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+.navbar.scrolled {
+    background-color: rgba(0, 102, 204, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    border-radius: 5px;
 }
 
 /* Hero Section */
@@ -283,15 +294,27 @@ body {
 
 .contact-form .form-control {
     background: rgba(255, 255, 255, 0.9);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     padding: 0.75rem 1rem;
     margin-bottom: 1rem;
+    width: 100%;
+    color: #333;
 }
 
 .contact-form .form-control:focus {
     background: white;
     box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    outline: none;
+}
+
+.contact-form select.form-control {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
 }
 
 /* Animations */

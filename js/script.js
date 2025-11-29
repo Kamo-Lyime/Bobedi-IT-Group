@@ -20,13 +20,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', function() {
+    const updateNavbar = () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+    };
+    
+    window.addEventListener('scroll', updateNavbar);
+    // Initial check
+    updateNavbar();
 
     // Contact form handling
     const contactForm = document.getElementById('contactForm');
@@ -72,14 +76,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Form submission handler
 async function handleFormSubmission() {
     const form = document.getElementById('contactForm');
-    const formData = new FormData(form);
     
-    // Get form values
-    const name = formData.get('name') || document.getElementById('name').value;
-    const email = formData.get('email') || document.getElementById('email').value;
-    const phone = formData.get('phone') || document.getElementById('phone').value;
-    const service = formData.get('service') || document.getElementById('service').value;
-    const message = formData.get('message') || document.getElementById('message').value;
+    // Get form values directly from elements
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
 
     // Basic validation
     if (!name || !email || !service) {
@@ -242,6 +245,18 @@ function trackPerformance() {
 
 // Initialize performance tracking
 trackPerformance();
+
+// Image error handling
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn('Failed to load image:', this.src);
+            // You could add a placeholder image here if needed
+            // this.src = 'img/placeholder.png';
+        });
+    });
+});
 
 // Utility functions
 const utils = {
