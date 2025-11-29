@@ -2,8 +2,8 @@
 // Replace these with your actual Supabase credentials
 
 const SUPABASE_CONFIG = {
-    url: 'YOUR_SUPABASE_URL', // e.g., 'https://xxxxx.supabase.co'
-    anonKey: 'YOUR_SUPABASE_ANON_KEY' // Your public anon key
+    url: 'https://eylfkeqjgvlnmvbkxedv.supabase.co', // e.g., 'https://xxxxx.supabase.co'
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5bGZrZXFqZ3Zsbm12Ymt4ZWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzODkwNjIsImV4cCI6MjA3OTk2NTA2Mn0.lEETpmNY7YPQF3KxChtZsTPBDyHyZMPBL2v9wbvy6gc' // Your public anon key
 };
 
 // Initialize Supabase client (using CDN version)
