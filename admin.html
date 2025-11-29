@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Bobedi IT Group</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .submission-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .submission-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .status-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-new { background-color: #ffc107; color: #000; }
+        .status-contacted { background-color: #17a2b8; color: #fff; }
+        .status-in-progress { background-color: #007bff; color: #fff; }
+        .status-resolved { background-color: #28a745; color: #fff; }
+        .status-spam { background-color: #dc3545; color: #fff; }
+        .loading-spinner {
+            text-align: center;
+            padding: 3rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section (shows if not authenticated) -->
+    <div id="loginSection" class="login-container" style="display: none;">
+        <h3 class="text-center mb-4">Admin Login</h3>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="loginEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <div class="mt-3 text-center">
+            <small class="text-muted">Use your Supabase credentials</small>
+        </div>
+    </div>
+
+    <!-- Dashboard Section (shows when authenticated) -->
+    <div id="dashboardSection" style="display: none;">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1><i class="fas fa-tachometer-alt me-2"></i>Contact Submissions Dashboard</h1>
+                        <p class="mb-0">Manage your Bobedi IT Group inquiries</p>
+                    </div>
+                    <button class="btn btn-light" onclick="logout()">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="container mb-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalSubmissions">0</div>
+                        <div class="text-muted">Total Submissions</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number text-warning" id="newSubmissions">0</div>
+                        <div class="text-muted">New</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number text-info" id="contactedSubmissions">0</div>
+                        <div class="text-muted">Contacted</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number text-success" id="resolvedSubmissions">0</div>
+                        <div class="text-muted">Resolved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="container mb-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <select class="form-select" id="statusFilter" onchange="filterSubmissions()">
+                        <option value="all">All Statuses</option>
+                        <option value="new">New</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="spam">Spam</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" onclick="refreshSubmissions()">
+                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                    </button>
+                    <button class="btn btn-success" onclick="exportToCSV()">
+                        <i class="fas fa-download me-2"></i>Export CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submissions List -->
+        <div class="container">
+            <div id="loadingSpinner" class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3">Loading submissions...</p>
+            </div>
+            <div id="submissionsList"></div>
+            <div id="noSubmissions" style="display: none;" class="text-center py-5">
+                <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                <p class="text-muted">No submissions found</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase and Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let allSubmissions = [];
+        let currentUser = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            initializeSupabase();
+            
+            // Check if user is already logged in
+            if (supabaseClient) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    currentUser = session.user;
+                    showDashboard();
+                    loadSubmissions();
+                } else {
+                    showLogin();
+                }
+            } else {
+                showLogin();
+            }
+        });
+
+        // Show login form
+        function showLogin() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+        }
+
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+        }
+
+        // Login handler
+        document.getElementById('loginForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                currentUser = data.user;
+                showDashboard();
+                loadSubmissions();
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        });
+
+        // Logout
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            currentUser = null;
+            showLogin();
+        }
+
+        // Load submissions
+        async function loadSubmissions() {
+            try {
+                document.getElementById('loadingSpinner').style.display = 'block';
+                document.getElementById('submissionsList').innerHTML = '';
+                
+                const result = await getContactSubmissions(100);
+                allSubmissions = result.data || [];
+                
+                updateStatistics();
+                displaySubmissions(allSubmissions);
+                
+                document.getElementById('loadingSpinner').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading submissions:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                alert('Error loading submissions: ' + error.message);
+            }
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            document.getElementById('totalSubmissions').textContent = allSubmissions.length;
+            document.getElementById('newSubmissions').textContent = 
+                allSubmissions.filter(s => s.status === 'new').length;
+            document.getElementById('contactedSubmissions').textContent = 
+                allSubmissions.filter(s => s.status === 'contacted').length;
+            document.getElementById('resolvedSubmissions').textContent = 
+                allSubmissions.filter(s => s.status === 'resolved').length;
+        }
+
+        // Display submissions
+        function displaySubmissions(submissions) {
+            const container = document.getElementById('submissionsList');
+            
+            if (submissions.length === 0) {
+                document.getElementById('noSubmissions').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('noSubmissions').style.display = 'none';
+            
+            container.innerHTML = submissions.map(submission => `
+                <div class="submission-card">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5><i class="fas fa-user me-2"></i>${submission.name}</h5>
+                            <p class="mb-1">
+                                <i class="fas fa-envelope me-2"></i>
+                                <a href="mailto:${submission.email}">${submission.email}</a>
+                            </p>
+                            ${submission.phone ? `<p class="mb-1"><i class="fas fa-phone me-2"></i>${submission.phone}</p>` : ''}
+                            <p class="mb-1">
+                                <i class="fas fa-briefcase me-2"></i>
+                                <strong>Service:</strong> ${submission.service}
+                            </p>
+                            ${submission.message ? `<p class="mt-2"><i class="fas fa-comment me-2"></i>${submission.message}</p>` : ''}
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="mb-2">
+                                <span class="status-badge status-${submission.status}">${submission.status.toUpperCase()}</span>
+                            </div>
+                            <small class="text-muted d-block mb-3">
+                                <i class="fas fa-clock me-1"></i>
+                                ${new Date(submission.submitted_at).toLocaleString()}
+                            </small>
+                            <select class="form-select form-select-sm" 
+                                    onchange="updateStatus('${submission.id}', this.value)">
+                                <option value="">Change Status...</option>
+                                <option value="new">New</option>
+                                <option value="contacted">Contacted</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="spam">Spam</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update submission status
+        async function updateStatus(id, status) {
+            if (!status) return;
+            
+            try {
+                await updateSubmissionStatus(id, status);
+                await loadSubmissions();
+            } catch (error) {
+                alert('Error updating status: ' + error.message);
+            }
+        }
+
+        // Filter submissions
+        function filterSubmissions() {
+            const filter = document.getElementById('statusFilter').value;
+            
+            if (filter === 'all') {
+                displaySubmissions(allSubmissions);
+            } else {
+                const filtered = allSubmissions.filter(s => s.status === filter);
+                displaySubmissions(filtered);
+            }
+        }
+
+        // Refresh submissions
+        function refreshSubmissions() {
+            loadSubmissions();
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const csv = [
+                ['Name', 'Email', 'Phone', 'Service', 'Message', 'Status', 'Submitted At'],
+                ...allSubmissions.map(s => [
+                    s.name,
+                    s.email,
+                    s.phone || '',
+                    s.service,
+                    s.message || '',
+                    s.status,
+                    new Date(s.submitted_at).toLocaleString()
+                ])
+            ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bobedi-submissions-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+    </script>
+</body>
+</html>

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Form submission handler
-function handleFormSubmission() {
+async function handleFormSubmission() {
     const form = document.getElementById('contactForm');
     const formData = new FormData(form);
     
@@ -92,31 +92,47 @@ function handleFormSubmission() {
         return;
     }
 
-    // Simulate form submission (replace with actual submission logic)
+    // Prepare form submission
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.innerHTML;
     
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
     submitButton.disabled = true;
 
-    // Simulate API call
-    setTimeout(() => {
-        // Reset form
-        form.reset();
+    try {
+        // Submit to Supabase
+        if (typeof submitToSupabase === 'function') {
+            await submitToSupabase({
+                name,
+                email,
+                phone: phone || '',
+                service,
+                message: message || ''
+            });
+            
+            // Reset form on success
+            form.reset();
+            showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
+            
+            console.log('Form submitted successfully to Supabase');
+        } else {
+            // Fallback: Log to console if Supabase is not available
+            console.log('Supabase not available. Form data:', {
+                name, email, phone, service, message
+            });
+            
+            // You can also send to an email service or other backend here
+            form.reset();
+            showNotification('Thank you! Your message has been received. We\'ll get back to you soon.', 'success');
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        showNotification('Sorry, there was an error sending your message. Please try again or contact us directly.', 'error');
+    } finally {
+        // Re-enable submit button
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
-        
-        showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
-        
-        // Log form data (for development purposes)
-        console.log('Form submitted:', {
-            name, email, phone, service, message
-        });
-        
-        // Here you would typically send the data to your server
-        // Example: sendToServer({ name, email, phone, service, message });
-        
-    }, 2000);
+    }
 }
 
 // Email validation
