@@ -28,15 +28,18 @@ ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow public inserts" ON contact_submissions;
 DROP POLICY IF EXISTS "Allow authenticated reads" ON contact_submissions;
 DROP POLICY IF EXISTS "Allow authenticated updates" ON contact_submissions;
+DROP POLICY IF EXISTS "Allow service role all" ON contact_submissions;
+DROP POLICY IF EXISTS "Enable insert for anon users" ON contact_submissions;
+DROP POLICY IF EXISTS "Enable read for authenticated users" ON contact_submissions;
 
--- Create policy to allow anyone to insert (submit forms)
-CREATE POLICY "Allow public inserts" ON contact_submissions
+-- Create policy to allow ANYONE (including anonymous) to insert
+CREATE POLICY "Enable insert for anon users" ON contact_submissions
     FOR INSERT
-    TO anon
+    TO public
     WITH CHECK (true);
 
 -- Create policy to allow authenticated users to read all submissions
-CREATE POLICY "Allow authenticated reads" ON contact_submissions
+CREATE POLICY "Enable read for authenticated users" ON contact_submissions
     FOR SELECT
     TO authenticated
     USING (true);
@@ -51,7 +54,8 @@ CREATE POLICY "Allow authenticated updates" ON contact_submissions
 CREATE POLICY "Allow service role all" ON contact_submissions
     FOR ALL
     TO service_role
-    USING (true);
+    USING (true)
+    WITH CHECK (true);
 
 -- Verify the table was created
 SELECT 'Table created successfully!' as message;
