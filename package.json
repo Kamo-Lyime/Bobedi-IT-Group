@@ -1,0 +1,34 @@
+{
+  "name": "bobedi-it-group-website",
+  "version": "1.0.0",
+  "description": "Professional website for Bobedi IT Group - Your trusted technology partner in South Africa",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx http-server . -p 3000 -o -c-1",
+    "build": "echo 'Build completed successfully'",
+    "serve": "npx http-server . -p 8080"
+  },
+  "keywords": [
+    "web-development",
+    "IT-services",
+    "south-africa",
+    "technology",
+    "cybersecurity",
+    "hosting",
+    "app-development"
+  ],
+  "author": "Bobedi IT Group",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.7"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bobedi-it-group/website.git"
+  },
+  "homepage": "https://bobediitgroup.co.za"
+}
