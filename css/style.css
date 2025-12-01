@@ -1,7 +1,7 @@
 /* Custom CSS for Bobedi IT Group */
 
 :root {
-    --primary-color: #0066cc;
+    --primary-color: #2073c5;
     --secondary-color: #f8f9fa;
     --accent-color: #28a745;
     --dark-color: #343a40;
@@ -117,20 +117,20 @@ body {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(159, 156, 236, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #e9ecef;
 }
 
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 30px rgba(136, 147, 185, 0.15);
 }
 
 .service-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), #004499);
+    background: linear-gradient(135deg, var(--primary-color), #84b3ec);
     border-radius: 50%;
     display: flex;
     align-items: center;
