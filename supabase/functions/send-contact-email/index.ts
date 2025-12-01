@@ -25,6 +25,13 @@ serve(async (req) => {
   try {
     const contactData: ContactFormData = await req.json()
 
+    // Validate API key
+    if (!RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured')
+    }
+
+    console.log('Sending email for:', contactData.name, contactData.email)
+
     // Send email using Resend
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -33,9 +40,9 @@ serve(async (req) => {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Bobedi IT Group <onboarding@resend.dev>', // Will change after domain verification
-        to: ['bobedi.it@gmail.com'],
-        subject: `New Contact Form Submission - ${contactData.service}`,
+        from: 'Bobedi IT Group <onboarding@resend.dev>',
+        to: ['kamohelo.mokoteli@yahoo.com'],  // Changed to your verified email
+        subject: `New Contact Form: ${contactData.service} - ${contactData.name}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -104,18 +111,25 @@ serve(async (req) => {
 
     const data = await res.json()
 
+    console.log('Resend API response:', data)
+
     if (res.ok) {
+      console.log('Email sent successfully!')
       return new Response(JSON.stringify({ success: true, data }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
       })
     } else {
+      console.error('Resend API error:', data)
       throw new Error(data.message || 'Failed to send email')
     }
 
   } catch (error) {
-    console.error('Error:', error)
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error('Error sending email:', error)
+    return new Response(JSON.stringify({ 
+      error: error.message,
+      details: 'Check Edge Function logs for more information' 
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     })
