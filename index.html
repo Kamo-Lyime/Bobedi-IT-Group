@@ -41,10 +41,10 @@
                         <img src="img/Bobedi IT Group.png" alt="Bobedi IT Group Logo" height="200" class="mb-3">
                     </div>
                     <h1 class="display-4 fw-bold mb-4">
-                        Your Complete <span class="text-primary">Outsourced IT Department</span>
+                        Your Complete <span class="text-primary">Turnkey Digital Environment</span>
                     </h1>
                     <p class="lead mb-4">
-                        Comprehensive IT solutions for African businesses. We're your trusted technology partner for growth and innovation.
+                        Comprehensive IT solutions for African businesses. We're your trusted technology partner in design, build and maintenance for your business solutions, growth and innovation.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="#contact" class="btn btn-primary btn-lg">Get Free Consultation</a>
@@ -62,12 +62,12 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services Section -->   
     <section id="services" class="py-5 bg-light">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Comprehensive IT Services</h2>
-                <p class="lead">Everything your business needs to thrive in the digital & AI age</p>
+                <h2 class="display-5 fw-bold">Your African Partner For Complex Technology Solutions</h2>
+                <p class="lead">Helping you innovate faster, operate smarter and scale with confindence by providing solutions that your business needs to thrive in the digital & AI age</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
@@ -165,6 +165,7 @@
                             <li>Logo Design</li>
                             <li>Marketing Materials</li>
                             <li>Web Graphics</li>
+                             <li>Brand Identity</li>
                         </ul>
                     </div>
                 </div>
@@ -389,17 +390,379 @@
             </div>
         </div>
     </section>
+     <!-- Reviews -->
+    <section id="reviews" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Client Reviews</h2>
+                <p class="lead">What our clients say about our services</p>
+            </div>
+            
+            <div class="review-slider-container position-relative">
+                <div class="review-slider" id="reviewSlider">
+                    <div class="review-card active">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h5 class="reviewer-name">Katlego Mashaba</h5>
+                                    <small class="text-muted">Founder, YoungBoysDream Foundation</small>
+                                </div>
+                            </div>
+                            <div class="star-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-message">
+                            <p>"Bobedi IT Group transformed my idea of YoungBoysDream Foundation into reality. Their expertise in graphic design gave us the results we needed and proper marketing strategies. Highly professional and reliable team!"</p>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h5 class="reviewer-name">Lesego Madumo</h5>
+                                    <small class="text-muted">Director, Fix It Plumbing</small>
+                                </div>
+                            </div>
+                            <div class="star-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-message">
+                            <p>"Outstanding service! My computer system was very slow, it couldn't load the operating system and Bobedi IT Group fixed it efficiently within 24 hours. They delivered within budget and ahead of schedule."</p>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h5 class="reviewer-name">Sam Maseko</h5>
+                                    <small class="text-muted">CEO, Tik Balustrade</small>
+                                </div>
+                            </div>
+                            <div class="star-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-message">
+                            <p>"Their web development, domain and hosting services significantly improved our online presence, which increased our efficiency. The team's knowledge of African markets is impressive. Great investment for our growth!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <button class="review-nav-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="review-nav-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Dots Indicator -->
+                <div class="review-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .review-slider-container {
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .review-slider {
+        display: flex;
+        transition: transform 2s ease-in-out;
+    }
+
+    .review-card {
+        min-width: 100%;
+        background: rgb(201, 184, 248);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin: 0 10px;
+        opacity: 0.7;
+        transform: scale(0.95);
+        transition: all 0.5s ease;
+    }
+
+    .review-card.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .reviewer-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .reviewer-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .reviewer-name {
+        margin: 0;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .star-rating {
+        color: #ffc107;
+        font-size: 1.1rem;
+    }
+
+    .review-message {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .review-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #007bff;
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .review-nav-btn:hover {
+        background: #0056b3;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev-btn {
+        left: -25px;
+    }
+
+    .next-btn {
+        right: -25px;
+    }
+
+    .review-dots {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: #ddd;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .dot.active {
+        background: #007bff;
+    }
+
+    @media (max-width: 768px) {
+        .review-card {
+            padding: 1.5rem;
+            margin: 0 1px;
+        }
+        
+        .review-header {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .review-nav-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
+        
+        .prev-btn {
+            left: -20px;
+        }
+        
+        .next-btn {
+            right: -20px;
+        }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('reviewSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dots = document.querySelectorAll('.dot');
+        const cards = document.querySelectorAll('.review-card');
+        
+        let currentSlide = 0;
+        const totalSlides = cards.length;
+
+        function updateSlider() {
+            const translateX = -currentSlide * 100;
+            slider.style.transform = `translateX(${translateX}%)`;
+            
+            // Update active states
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === currentSlide);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider();
+            });
+        });
+
+      
+
+        // Touch/swipe support
+        let startX = 0;
+        let isDragging = false;
+
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slider.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            isDragging = false;
+        });
+
+        // Mouse drag support
+        let mouseStartX = 0;
+        let isMouseDragging = false;
+
+        slider.addEventListener('mousedown', (e) => {
+            mouseStartX = e.clientX;
+            isMouseDragging = true;
+            slider.style.cursor = 'grabbing';
+        });
+
+        slider.addEventListener('mouseup', (e) => {
+            if (!isMouseDragging) return;
+            
+            const mouseEndX = e.clientX;
+            const diff = mouseStartX - mouseEndX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            isMouseDragging = false;
+            slider.style.cursor = 'grab';
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isMouseDragging = false;
+            slider.style.cursor = 'grab';
+        });
+
+        // Initial setup
+        slider.style.cursor = 'grab';
+        updateSlider();
+    });
+    </script>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                      <p class="mb-0">Your trusted technology partner in Africa.</p>
                     <h5><img src="img/Bobedi IT Group transparent  (1).png" alt="Bobedi IT Group Logo" height="150"></h5>
                   
-
-                    <p class="mb-0">&copy; 2025 Bobedi IT Group (Pty) Ltd 2025/690097/07. All rights reserved.</p>
+                       <p class="mb-0">Your trusted technology partner in Africa.</p>
+                    <p class="mb-0">&copy; 2025 Bobedi IT Group (Pty) Ltd.</p>
+                    <p class="mb-0">All rights reserved.</p>
                 </div>
             </div>
         </div>
