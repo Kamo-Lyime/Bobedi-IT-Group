@@ -40,8 +40,8 @@ serve(async (req) => {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Bobedi IT Group <onboarding@resend.dev>',
-        to: ['kamohelo.mokoteli@yahoo.com'],  // Changed to your verified email
+        from: 'Bobedi IT Group <noreply@bobediitgroup.co.za>',
+        to: ['bobedi.it@gmail.com'],
         subject: `New Contact Form: ${contactData.service} - ${contactData.name}`,
         html: `
           <!DOCTYPE html>
