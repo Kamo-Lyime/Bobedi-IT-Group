@@ -394,3 +394,110 @@ html {
         opacity: 1;
     }
 }
+
+/* WhatsApp Buttons - Hazard Light Effect */
+.whatsapp-buttons {
+    position: fixed;
+    bottom: 30px;
+    left: 20px;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.whatsapp-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    animation: hazardBlink 1s ease-in-out infinite;
+}
+
+.whatsapp-btn-left {
+    /* First button - no delay */
+}
+
+.whatsapp-btn-right {
+    /* Second button - delayed for hazard effect */
+    animation-delay: 0.5s;
+}
+
+.whatsapp-btn i {
+    font-size: 24px;
+}
+
+.whatsapp-btn span {
+    font-size: 14px;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.1);
+    background-color: #128C7E;
+    color: white;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    animation: none;
+}
+
+/* Hazard Light Blinking Animation */
+@keyframes hazardBlink {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        opacity: 0.3;
+        box-shadow: 0 2px 8px rgba(37, 211, 102, 0.2);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .whatsapp-buttons {
+        left: 10px;
+        gap: 12px;
+    }
+    
+    .whatsapp-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .whatsapp-btn i {
+        font-size: 20px;
+    }
+    
+    .whatsapp-btn span {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-buttons {
+        left: 10px;
+        gap: 10px;
+    }
+    
+    .whatsapp-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    .whatsapp-btn i {
+        font-size: 18px;
+    }
+    
+    .whatsapp-btn span {
+        font-size: 11px;
+    }
+}
